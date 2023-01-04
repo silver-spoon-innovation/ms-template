@@ -1,0 +1,18 @@
+version: "3.9"
+
+services:
+  ms-template:
+    container_name: ms-template
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.ms-template.rule=PathPrefix(`/template`)"
+    user: root
+    build:
+      context: .
+      target: build
+    volumes:
+      - ./:/opt/app
+      - /opt/app/node_modules
+    ports:
+      - 5501:5501
+    command: ./shell/start-dev.sh
