@@ -20,6 +20,10 @@ ps:
 build:
 	docker-compose -p ${project} build --no-cache
 
+.PHONY: shell
+shell:
+	docker-compose -p ${project} exec ${service} sh
+
 .PHONY: commit-hash
 commit-hash:
 	@echo $(COMMIT_HASH)

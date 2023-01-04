@@ -1,4 +1,4 @@
-FROM node:18-alphine as base
+FROM node:16-alpine3.17 as base
 
 ADD ./ /opt/app
 WORKDIR /opt/app
@@ -15,4 +15,4 @@ RUN npm install -g nodemon && npm install && chown -R node /opt/app
 
 USER node
 
-ENTRYPOINT ts-node -r tsconfig-paths/register ./src/server.ts
+ENTRYPOINT node ./src/server.js
