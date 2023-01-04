@@ -15,4 +15,4 @@ RUN npm install -g nodemon && npm install && chown -R node /opt/app
 
 USER node
 
-ENTRYPOINT node ./src/server.js
+ENTRYPOINT ts-node ./src/server.ts

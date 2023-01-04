@@ -12,6 +12,9 @@ start:
 stop:
 	docker-compose -p ${project} down
 
+.PHONY: restart
+restart: stop start
+
 .PHONY: ps
 ps:
 	docker-compose -p ${project} ps
@@ -19,6 +22,9 @@ ps:
 .PHONY: build
 build:
 	docker-compose -p ${project} build --no-cache
+
+.PHONY: clean
+clean: stop build start
 
 .PHONY: shell
 shell:
