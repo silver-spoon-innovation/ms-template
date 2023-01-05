@@ -4,7 +4,7 @@ ADD ./ /opt/app
 WORKDIR /opt/app
 
 USER root
-RUN rm -rf node_modules && chown -R node /opt/app
+RUN rm -rf node_modules combined.log error.log && chown -R node /opt/app
 
 USER node
 

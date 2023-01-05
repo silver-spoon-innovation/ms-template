@@ -1,0 +1,169 @@
+openapi: 3.0.0
+info:
+  version: 1.0.0
+  title: ms-template api
+
+components:
+  responses:
+    SuccessWithReplyCode200:
+      description: ok with reply code
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ReplyCodeResponse'
+    SuccessCreate200:
+      description: ok
+      content:
+        application/json:
+          schema:
+            type: string
+    ErrorGeneral400:
+      description: Bad Request
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: '#/components/schemas/GeneralError'
+    ErrorGeneral500:
+      description: Internal Server Error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/AnyValue'
+
+  parameters:
+    Id:
+      name: id
+      required: true
+      in: path
+      description: unique identifier
+      schema:
+        type: string
+
+  schemas:
+    AnyValue:
+      description: Any object, the type of this object is unknown
+    GeneralError:
+      type: object
+      required:
+        - msg
+      properties:
+        msg:
+          type: string
+        value:
+          type: string
+        location:
+          type: string
+    ReplyCodeResponse:
+      type: object
+      properties:
+        reply_code:
+          type: number
+
+    Menu:
+      type: object
+      required:
+        - _id
+        - name
+        - retails
+      properties:
+        _id:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+        retails:
+          type: array
+          items:
+            type: object
+            required:
+              - price
+              - size
+              - cost
+            properties:
+              price:
+                type: number
+              size:
+                type: string
+              cost:
+                type: number
+    MutateMenuRequest:
+      type: object
+      required:
+        - name
+        - retails
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+        retails:
+          type: array
+          items:
+            type: object
+            required:
+              - price
+              - size
+              - cost
+            properties:
+              price:
+                type: number
+              size:
+                type: string
+              cost:
+                type: number
+
+paths:
+  /menu:
+    post:
+      tags:
+        - Menu
+      description: Create a new Menu
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MutateMenuRequest'
+      responses:
+        '200':
+          $ref: '#/components/responses/SuccessCreate200'
+  /menu/{id}:
+    patch:
+      tags:
+        - Menu
+      parameters:
+        - $ref: '#/components/parameters/Id'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MutateMenuRequest'
+      responses:
+        '200':
+          $ref: '#/components/responses/SuccessWithReplyCode200'
+    delete:
+      tags:
+        - Menu
+      parameters:
+        - $ref: '#components/parameters/Id'
+      responses:
+        '200':
+          $ref: '#/components/responses/SuccessWithReplyCode200'
+  /menu/menus:
+    get:
+      tags:
+        - Menu
+      description: Returns a list of Menus
+      responses:
+        '200':
+          description: Successfully returned a list of menus
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Menu'

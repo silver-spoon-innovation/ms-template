@@ -1,8 +1,12 @@
 import express from 'express';
 import mongoose from 'mongoose';
+import swaggerUi from 'swagger-ui-express';
+import YAML from 'yamljs';
 import Routes from '@src/route';
 
 async function main() {
+    const swaggerDocument = YAML.load('./api-docs.yml');
+
     const PORT = process.env.PORT || 5501;
 
     const {MONGO_USERNAME, MONGO_PASSWORD, MONGO_HOST, MONGO_DATABASE} = process.env
@@ -14,12 +18,16 @@ async function main() {
             console.log('Unable to connect to MongoDB, exiting...');
             process.exit(1);
         }
-        console.log('Connected to MongoDB');
+        console.log('connected to mongodb');
     });
 
     const app = express();
 
     app.use(express.json());
+
+    app.use('/api-docs', swaggerUi.serve);
+    app.get('/api-docs', swaggerUi.setup(swaggerDocument));
+    app.get('/api-docs.json', (req: any, res: any) => res.json(swaggerDocument));
 
     app.use('/api', Routes);
 
