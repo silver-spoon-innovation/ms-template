@@ -15,13 +15,11 @@ services:
       - /opt/app/node_modules
     ports:
       - 5501:5501
-    env_file:
-      - ./database.env
     links:
       - ms-template-db
     depends_on:
       - ms-template-db
-    command: ./shell/wait-for.sh ms-template-db:27017 -- ./shell/start-dev.sh
+    command: .shell/wait-for.sh mongo:27017 -- ./shell/start-dev.sh
 
   ms-template-db:
     container_name: ms-template-db

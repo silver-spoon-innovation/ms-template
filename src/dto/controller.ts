@@ -1,0 +1,1 @@
+export const toControllerErrorResponse = (data: any) => [data];
