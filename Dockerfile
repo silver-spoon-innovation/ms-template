@@ -8,6 +8,18 @@ RUN rm -rf node_modules combined.log error.log && chown -R node /opt/app
 
 USER node
 
+FROM base as release
+
+USER root
+RUN npm install --omit=dev && chown -R node /opt/app
+
+USER node
+ENV HOME_DIR=/opt/app \
+    NODE_ENV=production \
+    PORT=5501
+
+ENTRYPOINT node -r ts-node/register/transpile-only -r tsconfig-paths/register ./dist/src/server.js
+
 FROM base as build
 
 USER root
