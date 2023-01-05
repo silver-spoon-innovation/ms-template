@@ -1,4 +1,4 @@
-FROM node:16-alpine3.17 as base
+FROM node:16 as base
 
 ADD ./ /opt/app
 WORKDIR /opt/app
