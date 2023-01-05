@@ -53,7 +53,7 @@ describe('createMenu()', () => {
       }]
     };
     // Act
-    const res = await menuService.createUnit(menu);
+    const res = await menuService.createMenu(menu);
     // Assert
     expect(res).toBeInstanceOf(Types.ObjectId);
   });
