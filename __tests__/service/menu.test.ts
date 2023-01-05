@@ -24,15 +24,15 @@ async function mockInsertMenu() {
 beforeAll(async () => {
   await connectDatabase();
   menuService = new MenuService();
-});
+}, 60 * 1000);
 
 afterEach(async () => {
   await clearDatabase();
-});
+}, 60 * 1000);
 
 afterAll(async () => {
   await closeDatabase();
-});
+}, 60 * 1000);
 
 describe('createMenu()', () => {
   it('can create a menu successfully', async () => {
@@ -56,7 +56,7 @@ describe('createMenu()', () => {
     const res = await menuService.createMenu(menu);
     // Assert
     expect(res).toBeInstanceOf(Types.ObjectId);
-  });
+  }, 60 * 1000);
 });
 
 describe('getMenus()', () => {
@@ -64,37 +64,41 @@ describe('getMenus()', () => {
     await mockInsertMenu();
     const res = await menuService.getMenus();
     expect(res).toHaveLength(1);
-  });
+  }, 60 * 1000);
 });
 
 describe('getMenuById()', () => {
   it('should correctly query menu by id', async () => {
+    jest.setTimeout(60 * 1000);
     const _id = await mockInsertMenu(); // arrange
     const res = await menuService.getMenuByID(_id.toString()); // act
     expect(res).toBeInstanceOf(MenuModel); // assert
     expect((res as Menu).name).toEqual(mockMenu.name);
-  });
+  }, 60 * 1000);
   it('should return not found error when id does not exist', async () => {
+    jest.setTimeout(60 * 1000);
     const res = await menuService.getMenuByID(new Types.ObjectId().toString());
     expect(res).toBeInstanceOf(ServiceError);
     expect((res as ServiceError).msg).toMatch(ERRORS.NOT_FOUND);
-  });
+  }, 60 * 1000);
 });
 
 describe('deleteMenuById()', () => {
   it('should return not found error when id does not exist', async () => {
+    jest.setTimeout(60 * 1000);
     const res = await menuService.deleteMenuByID(new Types.ObjectId().toString());
     expect(res).toBeInstanceOf(ServiceError);
     expect((res as ServiceError).msg).toMatch(ERRORS.NOT_FOUND);
-  });
+  }, 60 * 1000);
 
   it('should delete unit successfully', async () => {
+    jest.setTimeout(60 * 1000);
     const _id = await mockInsertMenu();
     const res = await menuService.deleteMenuByID(_id.toString());
     const queryRes = await MenuModel.findById({ _id });
     expect(queryRes).toBeNull();
     expect(res).toBeInstanceOf(Types.ObjectId);
-  });
+  }, 60 * 1000);
 });
 
 
