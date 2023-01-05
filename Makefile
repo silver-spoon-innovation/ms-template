@@ -52,6 +52,17 @@ install-dev-package-in-container: start
 shell:
 	docker-compose -p ${project} exec ${service} sh
 
+.PHONY: test
+test: start test-exec
+
+.PHONY: test-exec
+test-exec:
+	docker-compose -p ${project} exec ${service} npm run test
+
+.PHONY: test-cov
+test-cov:
+	docker-compose -p ${project} exec ${service} npm run test:coverage
+
 .PHONY: commit-hash
 commit-hash:
 	@echo $(COMMIT_HASH)
