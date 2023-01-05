@@ -1,0 +1,7 @@
+{
+  "development": {
+    "driver": "mongodb",
+    "database": {"ENV": "MONGO_DATABASE"},
+    "host": {"ENV": "MONGO_HOST"}
+  }
+}

@@ -15,4 +15,4 @@ RUN npm install -g nodemon && npm install && chown -R node /opt/app
 
 USER node
 
-ENTRYPOINT ts-node ./src/server.ts
+ENTRYPOINT ./shell/run-db-migration.sh && npx ts-node ./src/server.ts
