@@ -11,8 +11,8 @@ USER node
 FROM base as build
 
 USER root
-RUN npm install -g nodemon && npm install && chown -R node /opt/app
+RUN npm install -g nodemon ts-node && npm install && chown -R node /opt/app
 
 USER node
 
-ENTRYPOINT npx ts-node ./src/server.ts
+ENTRYPOINT ts-node -r tsconfig-paths/register ./src/server.ts

@@ -15,6 +15,14 @@ stop:
 .PHONY: restart
 restart: stop start
 
+.PHONY: logs
+logs:
+	docker-compose -p ${project} logs -f ${service}
+
+.PHONY: logs-db
+logs-db:
+	docker-compose -p ${project} logs -f ${service}-db
+
 .PHONY: ps
 ps:
 	docker-compose -p ${project} ps
