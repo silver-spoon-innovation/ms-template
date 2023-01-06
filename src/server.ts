@@ -31,6 +31,10 @@ async function main() {
 
     app.use('/api', Routes);
 
+    app.get('/', (req, res) => {
+        res.status(200).json({ msg: 'success' });
+    })
+
     app.listen(PORT, () => {
         console.log('service runnning on port', PORT);
     });
