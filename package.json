@@ -5,7 +5,7 @@
   "main": "server.ts",
   "scripts": {
     "start": "nodemon",
-    "test": "jest --runInBand --maxWorkers=2 ./__tests__",
+    "test": "jest --runInBand --no-colors ./__tests__",
     "test:watch": "jest --watchAll",
     "test:coverage": "jest --coverage"
   },
