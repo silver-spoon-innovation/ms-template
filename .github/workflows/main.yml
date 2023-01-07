@@ -12,12 +12,17 @@ jobs:
     steps:
     - uses: actions/checkout@v3
 
+    - name: Use Node.js 16
+      uses: actions/setup-node@v3
+      with:
+        node-version: 16.x
+
     - name: Load MongoDB binary cache
       id: cache-mongodb-binaries
       uses: actions/cache@v3
       with:
-        path: ./.cache/mongodb-binaries
-        key: ${{ runner.os }}-mongodb-binaries
+        path: ./node_modules/.cache/mongodb-binaries
+        key: build-test
 
     - name: Run Unit Tests
       run: make test
