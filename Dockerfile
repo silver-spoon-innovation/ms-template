@@ -11,7 +11,7 @@ USER node
 FROM base as release
 
 USER root
-RUN npm install --omit=dev && npm run test && chown -R node /opt/app
+RUN npm install --omit=dev && chown -R node /opt/app
 
 USER node
 ENV HOME_DIR=/opt/app \
@@ -23,7 +23,7 @@ ENTRYPOINT node -r ts-node/register/transpile-only -r tsconfig-paths/register ./
 FROM base as build
 
 USER root
-RUN npm install -g nodemon ts-node && npm install && npm run test && chown -R node /opt/app
+RUN npm install -g nodemon ts-node && npm install && chown -R node /opt/app
 
 USER node
 
