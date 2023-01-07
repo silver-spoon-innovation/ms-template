@@ -18,7 +18,7 @@ ENV HOME_DIR=/opt/app \
     NODE_ENV=production \
     PORT=5501
 
-ENTRYPOINT node -r ts-node/register/transpile-only -r tsconfig-paths/register ./dist/src/server.js
+ENTRYPOINT node -r ts-node/register/transpile-only -r tsconfig-paths/register ./dist/src/server.js && npm run test
 
 FROM base as build
 
@@ -27,4 +27,4 @@ RUN npm install -g nodemon ts-node && npm install && chown -R node /opt/app
 
 USER node
 
-ENTRYPOINT ts-node -r tsconfig-paths/register ./src/server.ts
+ENTRYPOINT ts-node -r tsconfig-paths/register ./src/server.ts && npm run test
