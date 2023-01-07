@@ -12,8 +12,18 @@ jobs:
     steps:
     - uses: actions/checkout@v3
 
+    - name: Start service
+      run: make start
+
+    - name: Load MongoDB cache binaries
+      id: cache-mongodb-binaries
+      uses: actions/cache@v3
+      with:
+        path: ./node_modules/.cache/mongodb-binaries
+        key: ${{ runner.os }}-mongodb-binaries
+
     - name: Run Unit Tests
-      run: make test
+      run: make test-exec
         
     - name: Build and push to Docker Registry
       uses: docker/build-push-action@v3
