@@ -40,7 +40,6 @@ jobs:
     - name: Build and push to Docker Registry
       uses: docker/build-push-action@v3
       with:
-        push: true
         repository: ${{ secrets.DOCKER_USERNAME }}/ms-template
         target: release
         tags: latest
