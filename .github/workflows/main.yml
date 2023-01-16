@@ -40,8 +40,6 @@ jobs:
     - name: Build and push to Docker Registry
       uses: docker/build-push-action@v3
       with:
-        repository: ${{ secrets.DOCKER_USERNAME }}/ms-template
-        target: release
-        tags: latest
-        add_git_labels: true
-        tag_with_ref: true
+        context: .
+        push: true
+        tags: ${{ secrets.DOCKER_USERNAME }}/ms-template:latest
