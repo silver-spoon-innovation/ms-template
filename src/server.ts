@@ -11,7 +11,14 @@ async function main() {
 
     const {MONGO_USERNAME, MONGO_PASSWORD, MONGO_HOST, MONGO_DATABASE} = process.env
 
-    const connectionString = `mongodb://${MONGO_USERNAME}:${MONGO_PASSWORD}@${MONGO_HOST}:27017/${MONGO_DATABASE}?authSource=admin`;
+    let connectionString = ""
+
+    if(process.env.NODE_ENV !== "dev"){
+        connectionString = `mongodb://${MONGO_USERNAME}:${MONGO_PASSWORD}@${MONGO_HOST}:27017/${MONGO_DATABASE}?authSource=admin`;
+    } else {
+        connectionString = `mongodb+srv://${MONGO_USERNAME}:${MONGO_PASSWORD}@${MONGO_HOST}/${MONGO_DATABASE}?retryWrites=true&w=majority`;
+    }  
+
     mongoose.connect(connectionString, (err: unknown) => {
         if(err) {
             console.log(err);
