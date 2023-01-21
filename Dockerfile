@@ -6,11 +6,10 @@ WORKDIR /opt/app
 USER root
 RUN rm -rf node_modules combined.log error.log \
     && npm install -g ts-node-dev typescript \
-    && npm install && chown -R node /opt/app
+    && npm install && npm run build \
+    && chown -R node /opt/app
 
 USER node
-
-ENTRYPOINT npm run build
 
 FROM base as release
 
