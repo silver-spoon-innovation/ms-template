@@ -11,7 +11,7 @@ USER node
 FROM base as release
 
 USER root
-RUN npm install --omit=dev && chown -R node /opt/app
+RUN npm install --omit=dev && npm install -g typescript && chown -R node /opt/app
 
 USER node
 ENV HOME_DIR=/opt/app \
