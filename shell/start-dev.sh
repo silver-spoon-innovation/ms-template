@@ -1,4 +1,4 @@
 #!/bin/sh
 export NODE_ENV=dev
 export PORT=5501
-nodemon
+ts-node-dev -r tsconfig-paths/register --respawn --transpile-only ./src/server.ts
